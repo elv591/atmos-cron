@@ -1,0 +1,21 @@
+# Fires the Atmos severe-weather alert check every ~5 minutes.
+# The endpoint is idempotent — it only pushes alerts it hasn't sent before.
+# Secret: ATMOS_CRON_SECRET (repo Settings → Secrets → Actions).
+name: atmos-check
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Fire alert check
+        run: |
+          curl -fsS -m 45 \
+            -H "Authorization: Bearer ${{ secrets.ATMOS_CRON_SECRET }}" \
+            "https://jarvis-elvis-mederos-projects.vercel.app/api/atmos/check"
