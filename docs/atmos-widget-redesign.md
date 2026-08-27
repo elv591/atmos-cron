@@ -1,7 +1,12 @@
 # Atmos widget: temperature-graph redesign spec
 
-Status: **spec only** — the widget itself lives in the Atmos iOS app, not in this
-repo. This doc captures the redesign so it can be applied there.
+Status: **spec + reference implementation** — the widget itself lives in the
+Atmos iOS app (a local Xcode project, not on GitHub), so it can't be patched
+from here. A complete drop-in SwiftUI view implementing this spec is at
+[`reference/AtmosForecastChart.swift`](../reference/AtmosForecastChart.swift):
+pure GeometryReader + Path, no Swift Charts, no dependencies, iOS 16+,
+WidgetKit-safe. Drag it into the Atmos project and feed it the hourly data the
+widget already has.
 
 ## The problem
 
